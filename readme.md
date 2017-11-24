@@ -8,6 +8,9 @@ A basic example of a RESTful api in Laravel.
 4. migrate the db: `php artisan migrate`
 
 GET /api/todo
+
 POST /api/todo
+
 PUT /api/todo/{todo}
+
 DELETE /api/todo/{todo}
