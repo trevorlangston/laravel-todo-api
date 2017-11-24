@@ -6,3 +6,8 @@ A basic example of a RESTful api in Laravel.
 2. Run `docker ps` to find the 'workspace' container name
 3. shell in: `docker exec -it <CONTAINER NAME> bash`
 4. migrate the db: `php artisan migrate`
+
+GET /api/todo
+POST /api/todo
+PUT /api/todo/{todo}
+DELETE /api/todo/{todo}
