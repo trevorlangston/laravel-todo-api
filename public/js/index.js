@@ -1386,7 +1386,7 @@ module.exports = __webpack_require__(55);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_index__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__App__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__App___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__App__);
 __webpack_require__(14);
@@ -1398,7 +1398,7 @@ window.Vue = __WEBPACK_IMPORTED_MODULE_0_vue___default.a;
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#todo-app',
-    store: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */],
+    store: __WEBPACK_IMPORTED_MODULE_1__store_index__["a" /* default */],
     template: '<App/>',
     components: { App: __WEBPACK_IMPORTED_MODULE_2__App___default.a }
 });
@@ -43124,19 +43124,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    methods: {
-        fetchAllTodos: function fetchAllTodos() {
-            var _this = this;
-
-            axios.get('/api/todos').then(function (resp) {
-                _this.$store.commit('setTodos', resp.data.data);
-            }).catch(function (e) {
-                console.log(e);
-            });
-        }
-    },
     created: function created() {
-        this.fetchAllTodos();
+        this.$store.dispatch('setTodos');
     },
 
     components: {
@@ -43307,16 +43296,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$store.commit('updateNewTodo', e.target.value);
         },
         addTodo: function addTodo() {
-            var _this = this;
-
-            axios.post('/api/todos', {
-                task: this.newTodo
-            }).then(function (resp) {
-                _this.$store.commit('addTodo', resp.data.data);
-            }).catch(function (e) {
-                console.log(e);
-            });
-            this.$store.commit('updateNewTodo', '');
+            this.$store.dispatch('addTodo');
         }
     },
     components: {
@@ -43451,13 +43431,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         removeTodo: function removeTodo(idToRemove) {
-            var _this = this;
-
-            axios.delete('/api/todos/' + idToRemove).then(function (resp) {
-                _this.$store.commit('removeTodo', idToRemove);
-            }).catch(function (e) {
-                console.log(e);
-            });
+            this.$store.dispatch('removeTodo', idToRemove);
         }
     }
 });
@@ -43595,51 +43569,7 @@ if (false) {
 /* 61 */,
 /* 62 */,
 /* 63 */,
-/* 64 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(65);
-
-
-
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
-    state: {
-        newTodo: '',
-        todos: [],
-        errors: {}
-    },
-    getters: {
-        todos: function todos(state) {
-            return state.todos;
-        },
-        newTodo: function newTodo(state) {
-            return state.newTodo;
-        }
-    },
-    mutations: {
-        updateNewTodo: function updateNewTodo(state, text) {
-            this.state.newTodo = text;
-        },
-        addTodo: function addTodo(state, todo) {
-            this.state.todos.push(todo);
-        },
-        setTodos: function setTodos(state, todos) {
-            this.state.todos = todos;
-        },
-        removeTodo: function removeTodo(state, idToRemove) {
-            this.state.todos = this.state.todos.filter(function (todo) {
-                return todo.id !== idToRemove;
-            });
-        }
-    }
-}));
-
-/***/ }),
+/* 64 */,
 /* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -44583,6 +44513,107 @@ var index_esm = {
 
 /* harmony default export */ __webpack_exports__["a"] = (index_esm);
 
+
+/***/ }),
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getters__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__(68);
+
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+
+var state = {
+    newTodo: '',
+    todos: [],
+    errors: {}
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+    state: state,
+    getters: __WEBPACK_IMPORTED_MODULE_3__getters__["a" /* default */],
+    mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__["a" /* default */],
+    actions: __WEBPACK_IMPORTED_MODULE_2__actions__["a" /* default */]
+}));
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    todos: function todos(state) {
+        return state.todos;
+    },
+    newTodo: function newTodo(state) {
+        return state.newTodo;
+    }
+});
+
+/***/ }),
+/* 68 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    updateNewTodo: function updateNewTodo(state, text) {
+        this.state.newTodo = text;
+    },
+    addTodo: function addTodo(state, todo) {
+        this.state.todos.push(todo);
+    },
+    setTodos: function setTodos(state, todos) {
+        this.state.todos = todos;
+    },
+    removeTodo: function removeTodo(state, idToRemove) {
+        this.state.todos = this.state.todos.filter(function (todo) {
+            return todo.id !== idToRemove;
+        });
+    }
+});
+
+/***/ }),
+/* 69 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    setTodos: function setTodos(context) {
+        axios.get('/api/todos').then(function (resp) {
+            context.commit('setTodos', resp.data.data);
+        }).catch(function (e) {
+            console.log(e);
+        });
+    },
+    addTodo: function addTodo(context) {
+        axios.post('/api/todos', {
+            task: context.state.newTodo
+        }).then(function (resp) {
+            context.commit('addTodo', resp.data.data);
+        }).catch(function (e) {
+            console.log(e);
+        });
+        context.commit('updateNewTodo', '');
+    },
+    removeTodo: function removeTodo(context, idToRemove) {
+        axios.delete('/api/todos/' + idToRemove).then(function (resp) {
+            context.commit('removeTodo', idToRemove);
+        }).catch(function (e) {
+            console.log(e);
+        });
+    }
+});
 
 /***/ })
 /******/ ]);

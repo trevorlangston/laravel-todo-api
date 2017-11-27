@@ -17,19 +17,8 @@
 import TodoList from './components/TodoList.vue'
 
 export default {
-    methods: {
-        fetchAllTodos: function() {
-            axios.get('/api/todos')
-                .then(resp => {
-                    this.$store.commit('setTodos', resp.data.data)
-                })
-                .catch(e => {
-                    console.log(e);
-                })
-        }
-    },
     created () {
-        this.fetchAllTodos()
+        this.$store.dispatch('setTodos');
     },
     components: {
         TodoList

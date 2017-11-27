@@ -27,13 +27,7 @@ export default {
     },
     methods: {
         removeTodo: function(idToRemove) {
-            axios.delete(`/api/todos/${idToRemove}`)
-                .then(resp => {
-                    this.$store.commit('removeTodo', idToRemove);
-                })
-                .catch(e => {
-                    console.log(e);
-                })
+            this.$store.dispatch('removeTodo', idToRemove);
         },
     }
 }

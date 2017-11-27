@@ -24,19 +24,10 @@ export default {
     },
     methods: {
         updateNewTodo: function (e) {
-            this.$store.commit('updateNewTodo', e.target.value)
+            this.$store.commit('updateNewTodo', e.target.value);
         },
         addTodo: function () {
-            axios.post('/api/todos', {
-                task: this.newTodo
-            })
-                .then(resp => {
-                    this.$store.commit('addTodo', resp.data.data);
-                })
-                .catch(e => {
-                    console.log(e);
-                })
-            this.$store.commit('updateNewTodo', '');
+            this.$store.dispatch('addTodo');
         }
     },
     components: {
