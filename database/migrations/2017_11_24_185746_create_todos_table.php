@@ -17,7 +17,7 @@ class CreateTodosTable extends Migration
             $table->increments('id');
             $table->string('task');
             $table->boolean('completed')->default(0);
-            $table->boolean('archived')->default(0);
+            $table->SoftDeletes();
             $table->timestamps();
         });
     }

@@ -5,10 +5,20 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">My Todo List</div>
                     <div class="panel-body">
-                        I'm the App component
+                        <TodoList/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import TodoList from './components/TodoList.vue'
+
+export default {
+    components: {
+        TodoList
+    }
+}
+</script>

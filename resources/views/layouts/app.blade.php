@@ -12,6 +12,9 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+        <!-- Scripts -->
+        <script src="https://use.fontawesome.com/110537c925.js"></script>
     </head>
     <body>
         <div>

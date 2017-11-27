@@ -28,7 +28,7 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'task' => 'required|string|unique:todos'
+            'task' => 'required|string|unique:todos|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -68,7 +68,7 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         $validator = Validator::make($request->all(), [
-            'task' => 'required|string|unique:todos',
+            'task' => 'required|string|unique:todos|max:255',
             'completed' => 'required|boolean'
         ]);
 
@@ -97,7 +97,8 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        $todo->archived = 1;
+        $todo->delete();
+
         return new TodoResource($todo);
     }
 }
