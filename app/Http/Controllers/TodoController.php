@@ -28,7 +28,7 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'task' => 'required|string|unique:todos|max:255'
+            'task' => 'required|string|unique:todos,deleted_at|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -97,7 +97,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        $todo->delete();
+        $todo->delete(); // soft delete
 
         return new TodoResource($todo);
     }

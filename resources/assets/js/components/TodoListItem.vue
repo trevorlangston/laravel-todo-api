@@ -10,7 +10,7 @@
             <!-- <button class="edit" @click="$emit('edit', todo.task)"> -->
             <!--     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
             <!-- </button> -->
-            <button class="delete" @click="$emit('remove', todo.id)">
+            <button class="delete" @click="removeTodo(todo.id)">
                 <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
         </div>
@@ -19,12 +19,23 @@
 
 <script>
 export default {
-  props: {
-    todo: {
-      type: Object,
-      required: true
+    props: {
+        todo: {
+            type: Object,
+            required: true
+        }
+    },
+    methods: {
+        removeTodo: function(idToRemove) {
+            axios.delete(`/api/todos/${idToRemove}`)
+                .then(resp => {
+                    this.$store.commit('removeTodo', idToRemove);
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+        },
     }
-  }
 }
 </script>
 

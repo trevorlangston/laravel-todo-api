@@ -1,72 +1,46 @@
 <template>
     <div>
         <input 
-        v-model="newTodo"
         placeholder="add a new todo"
+        :value="newTodo"
+        @input="updateNewTodo"
         @keydown.enter="addTodo">
         <ol>
             <TodoListItem
                 v-for="todo in todos"
                 :todo="todo"
-                :key="todo.id"
-                @remove="removeTodo"
-                />
+                :key="todo.id"/>
         </ol>
     </div>
 </template>
 
 <script>
 import TodoListItem from './TodoListItem.vue'
+import { mapGetters } from 'vuex'
 
 export default {
-    data () {
-        return {
-            newTodo: '',
-            todos: [],
-            errors: {}
-        }
+    computed: {
+        ...mapGetters(['todos', 'newTodo']),
     },
     methods: {
+        updateNewTodo: function (e) {
+            this.$store.commit('updateNewTodo', e.target.value)
+        },
         addTodo: function () {
             axios.post('/api/todos', {
                 task: this.newTodo
             })
                 .then(resp => {
-                    this.todos.push(resp.data.data); 
+                    this.$store.commit('addTodo', resp.data.data);
                 })
                 .catch(e => {
-                    this.errors = e;
+                    console.log(e);
                 })
-            this.newTodo = '';
-        },
-        removeTodo: function(idToRemove) {
-            axios.delete(`/api/todos/${idToRemove}`)
-                .then(resp => {
-                    this.todos = this.todos.filter(todo => {
-                        return todo.id !== idToRemove
-                    })
-                })
-                .catch(e => {
-                    this.errors = e;
-                })
-        },
-        fetchAllTodos: function() {
-            axios.get('/api/todos', {
-                task: this.newTodo
-            })
-                .then(resp => {
-                    this.todos = resp.data.data; 
-                })
-                .catch(e => {
-                    this.errors = e;
-                })
+            this.$store.commit('updateNewTodo', '');
         }
     },
     components: {
         TodoListItem
-    },
-    created () {
-        this.fetchAllTodos()
     }
 }
 </script>
