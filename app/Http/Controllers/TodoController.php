@@ -6,6 +6,7 @@ use App\Http\Resources\Todo as TodoResource;
 use App\Todo;
 use Illuminate\Http\Request;
 use Validator;
+use App\Rules\UniqueTodo;
 
 class TodoController extends Controller
 {
@@ -28,9 +29,9 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'task' => 'required|string|unique:todos,deleted_at|max:255'
+            'task' => 'required|string|max:255',
+            'task' => new UniqueTodo,
         ]);
-
         if ($validator->fails()) {
             return response(
                 array('errors' => $validator->errors()),
@@ -69,6 +70,7 @@ class TodoController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'task' => 'required|string|unique:todos|max:255',
+            'task' => new UniqueTodo,
             'completed' => 'required|boolean'
         ]);
 
