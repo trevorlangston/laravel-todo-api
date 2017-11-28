@@ -12,5 +12,8 @@ export default {
         this.state.todos = this.state.todos.filter(todo => {
             return todo.id !== idToRemove
         })
+    },
+    updateErrors(state, errors) {
+        this.state.errors = errors;
     }
 }

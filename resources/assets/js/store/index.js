@@ -10,7 +10,7 @@ Vue.use(Vuex);
 let state = {
     newTodo: '',
     todos: [],
-    errors: {}
+    errors: []
 };
 
 export default new Vuex.Store({

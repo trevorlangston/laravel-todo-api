@@ -11,16 +11,18 @@
                 :todo="todo"
                 :key="todo.id"/>
         </ol>
+        <TodoErrors/>
     </div>
 </template>
 
 <script>
 import TodoListItem from './TodoListItem.vue'
+import TodoErrors from './TodoErrors.vue'
 import { mapGetters } from 'vuex'
 
 export default {
     computed: {
-        ...mapGetters(['todos', 'newTodo']),
+        ...mapGetters(['todos', 'newTodo', 'errors']),
     },
     methods: {
         updateNewTodo: function (e) {
@@ -31,7 +33,8 @@ export default {
         }
     },
     components: {
-        TodoListItem
+        TodoListItem,
+        TodoErrors
     }
 }
 </script>

@@ -3,9 +3,10 @@ export default {
         axios.get('/api/todos')
             .then(resp => {
                 context.commit('setTodos', resp.data.data)
+                context.commit('updateErrors', []);
             })
             .catch(e => {
-                console.log(e);
+                handleErrors(context, e);
             })
     },
     addTodo(context) {
@@ -14,9 +15,10 @@ export default {
         })
             .then(resp => {
                 context.commit('addTodo', resp.data.data);
+                context.commit('updateErrors', []);
             })
             .catch(e => {
-                console.log(e);
+                handleErrors(context, e);
             })
         context.commit('updateNewTodo', '');
     },
@@ -24,9 +26,24 @@ export default {
         axios.delete(`/api/todos/${idToRemove}`)
             .then(resp => {
                 context.commit('removeTodo', idToRemove);
+                context.commit('updateErrors', []);
             })
             .catch(e => {
-                console.log(e);
+                handleErrors(context, e);
             })
+    }
+}
+
+const handleErrors = function(context, e) {
+    if (e.response.status === 400) {
+        context.commit(
+            'updateErrors', 
+            [].concat(e.response.data.message)
+        );
+    } else {
+        context.commit(
+            'updateErrors', 
+            [].concat('There was an unknown error, please try again later')
+        );
     }
 }

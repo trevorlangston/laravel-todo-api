@@ -4,5 +4,8 @@ export default {
     },
     newTodo(state) {
         return state.newTodo;
+    },
+    errors(state) {
+        return state.errors;
     }
 }

@@ -29,12 +29,13 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'task' => 'required|string|max:255',
             'task' => new UniqueTodo,
+            'task' => 'required|string|max:255',
         ]);
+
         if ($validator->fails()) {
             return response(
-                array('errors' => $validator->errors()),
+                array('message' => $validator->errors()->all()),
                 400
             );
         }
@@ -76,7 +77,7 @@ class TodoController extends Controller
 
         if ($validator->fails()) {
             return response(
-                array('errors' => $validator->errors()),
+                array('message' => $validator->errors()->all()),
                 400
             );
         }
