@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     props: {
         todo: {
@@ -26,9 +28,7 @@ export default {
         }
     },
     methods: {
-        removeTodo: function(idToRemove) {
-            this.$store.dispatch('removeTodo', idToRemove);
-        },
+        ...mapActions(['removeTodo'])
     }
 }
 </script>
