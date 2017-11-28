@@ -76,8 +76,5 @@
 
             @yield('content')
         </div>
-
-        <!-- Scripts -->
-        <script src="{{ asset('js/index.js') }}"></script>
     </body>
 </html>
